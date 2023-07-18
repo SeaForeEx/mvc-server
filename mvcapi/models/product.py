@@ -1,5 +1,6 @@
 from django.db import models
-from models import User, Genre
+from .user import User
+from .genre import Genre
 
 class Product(models.Model):
     seller_id = models.ForeignKey(User, on_delete=models.CASCADE)
