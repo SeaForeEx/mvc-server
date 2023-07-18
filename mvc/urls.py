@@ -18,10 +18,14 @@ from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
 
-from mvcapi.views import register_user, check_user, GenreView
+from mvcapi.views import register_user, check_user, GenreView, OrderProductView, OrderView, ProductView, UserView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'genres', GenreView, 'genre')
+router.register(r'order_products', OrderProductView, 'order_product')
+router.register(r'orders', OrderView, 'order')
+router.register(r'products', ProductView, 'product')
+router.register(r'users', UserView, 'user')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
