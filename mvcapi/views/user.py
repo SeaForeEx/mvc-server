@@ -7,6 +7,19 @@ from mvcapi.models import User
 class UserView(ViewSet):
     """MVC Users View"""
     
+    def create(self, request):
+        """CREATE User"""
+        
+        user = User.objects.create(
+            user_name=request.data["userName"],
+            email=request.data["email"],
+            profile_image_url=request.data["profileImageUrl"],
+            bio=request.data["bio"],
+            uid=request.data["uid"],
+        )
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
     def retrieve(self, request, pk):
         """GET Single User"""
         
