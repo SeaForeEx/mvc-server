@@ -6,16 +6,6 @@ from rest_framework.response import Response  # Importing the Response class fro
 def check_user(request):
     """
     Checks to see if User has associated User.
-    
-    This function is a view that handles the HTTP POST request. It checks if a User with a specific UID exists in the database
-    and returns the user's information if found.
-    
-    Args:
-        request: The HTTP request object containing the data sent by the client.
-            - The 'uid' parameter is expected to be present in the request data.
-    
-    Returns:
-        A Response object containing the user's information if found, or a response indicating that the user is not valid.
     """
     
     uid = request.data['uid']  # Extract the 'uid' parameter from the request data
@@ -63,7 +53,7 @@ def register_user(request):
     user = User.objects.create(
         user_name=request.data['user_name'],
         email=request.data['email'],
-        profile_image_url=request.data['profile_image_email'],
+        profile_image_url=request.data['profile_image_url'],
         bio=request.data['bio'],
         uid=request.data['uid']
     )
@@ -79,4 +69,3 @@ def register_user(request):
     }
     
     return Response(data)  # Return the created user's information in the response
-
