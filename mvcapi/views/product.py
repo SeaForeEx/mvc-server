@@ -3,6 +3,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from mvcapi.models import Product, User, Genre
+from datetime import datetime
 
 class ProductView(ViewSet):
     """MVC Products View"""
@@ -19,7 +20,7 @@ class ProductView(ViewSet):
             description=request.data["description"],
             qty_available=request.data["qtyAvailable"],
             price=request.data["price"],
-            added_on=request.data["addedOn"],
+            added_on=datetime.now(),
         )
         serializer = ProductSerializer(product)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -54,7 +55,7 @@ class ProductView(ViewSet):
         return Response('Product Updated', status=status.HTTP_200_OK)
     
     def destroy(self, request, pk):
-        """DELETE Order"""
+        """DELETE Product"""
         
         product = Product.objects.get(pk=pk)
         product.delete()
@@ -63,6 +64,7 @@ class ProductView(ViewSet):
 class ProductSerializer(serializers.ModelSerializer):
     """JSON Serializer for Products"""
     
+    added_on = serializers.DateTimeField(format="%B %d, %Y, %I:%M%p")
     class Meta:
         model = Product
         fields = ('id', 'seller_id', 'genre_id', 'title', 'description', 'qty_available', 'price', 'added_on')

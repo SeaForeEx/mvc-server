@@ -7,6 +7,6 @@ class Product(models.Model):
     genre_id = models.ForeignKey(Genre, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=50)
-    qtyAvailable = models.IntegerField()
+    qty_available = models.IntegerField()
     price = models.IntegerField()
     added_on = models.DateTimeField()

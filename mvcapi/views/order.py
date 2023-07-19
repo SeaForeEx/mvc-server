@@ -13,8 +13,8 @@ class OrderView(ViewSet):
         customer_id = User.objects.get(pk=request.data["customerId"])
         order = Order.objects.create(
             customer_id = customer_id,
-            payment_type=request.data["payment_type"],
-            is_open=request.data["is_open"],
+            payment_type=request.data["paymentType"],
+            is_open=request.data["isOpen"],
             total=request.data["total"],
         )
         serializer = OrderSerializer(order)
