@@ -48,6 +48,13 @@ class UserView(ViewSet):
         user.bio = request.data["bio"]
         user.save()
         return Response('User Updated', status=status.HTTP_200_OK)
+    
+    def destroy(self, request, pk):
+        """DELETE User"""
+        
+        user = User.objects.get(pk=pk)
+        user.delete()
+        return Response('User Deleted', status=status.HTTP_204_NO_CONTENT)
       
 class UserSerializer(serializers.ModelSerializer):
     """JSON Serializer for Users"""

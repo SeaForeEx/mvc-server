@@ -15,7 +15,6 @@ class OrderProductView(ViewSet):
         order_product = OrderProduct.objects.create(
             order_id = order_id,
             product_id = product_id,
-            title=request.data["title"],
             quantity=request.data["quantity"],
             qty_total=request.data["qtyTotal"],
         )
@@ -41,13 +40,15 @@ class OrderProductView(ViewSet):
         """PUT Order Product"""
         
         order_product = Product.objects.get(pk=pk)
+        order_product.order_id = Order.objects.get(pk=request.data["orderId"])
+        order_product.product_id = Product.objects.get(pk=request.data["productId"])
         order_product.quantity = request.data["quantity"]
-        order_product.qtyTotal = request.data["qtyTotal"]
+        order_product.qty_total = request.data["qtyTotal"]
         order_product.save()
         return Response('Order Product Updated', status=status.HTTP_200_OK)
     
     def destroy(self, request, pk):
-        """DELETE Order"""
+        """DELETE Order Product"""
         
         order_product = OrderProduct.objects.get(pk=pk)
         order_product.delete()
@@ -58,4 +59,4 @@ class OrderProductSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = OrderProduct
-        fields = ('id', 'order_id', 'product_id', 'title', 'quantity', 'qty_total')
+        fields = ('id', 'order_id', 'product_id', 'quantity', 'qty_total')
