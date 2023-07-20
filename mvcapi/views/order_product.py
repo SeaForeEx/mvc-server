@@ -32,14 +32,14 @@ class OrderProductView(ViewSet):
     def list(self, request):
         """GET All Order Products"""
 
-        order_products = Product.objects.all()
+        order_products = OrderProduct.objects.all()
         serializer = OrderProductSerializer(order_products, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def update(self, request, pk):
         """PUT Order Product"""
         
-        order_product = Product.objects.get(pk=pk)
+        order_product = OrderProduct.objects.get(pk=pk)
         order_product.order_id = Order.objects.get(pk=request.data["orderId"])
         order_product.product_id = Product.objects.get(pk=request.data["productId"])
         order_product.quantity = request.data["quantity"]
