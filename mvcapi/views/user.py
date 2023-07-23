@@ -39,12 +39,12 @@ class UserView(ViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def update(self, request, pk):
-        """PUT Order"""
+        """PUT User"""
         
         user = User.objects.get(pk=pk)
-        user.user_name = request.data["userName"]
+        user.user_name = request.data["user_name"]
         user.email=request.data["email"]
-        user.profile_image_url=request.data["profileImageUrl"]
+        user.profile_image_url=request.data["profile_image_url"]
         user.bio = request.data["bio"]
         user.save()
         return Response('User Updated', status=status.HTTP_200_OK)
