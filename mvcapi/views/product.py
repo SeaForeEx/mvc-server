@@ -37,6 +37,12 @@ class ProductView(ViewSet):
         """GET All Products"""
 
         products = Product.objects.all()
+        seller_id = request.query_params.get('sellerId', None)
+        if seller_id is not None:
+            products = products.filter(seller_id=seller_id)
+        genre_id = request.query_params.get('genreId', None)
+        if genre_id is not None:
+            products = products.filter(genre_id=genre_id)
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
