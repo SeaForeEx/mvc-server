@@ -56,7 +56,6 @@ class ProductView(ViewSet):
         product.description = request.data["description"]
         product.qty_available = request.data["qtyAvailable"]
         product.price = request.data["price"]
-        product.added_on = request.data["addedOn"]
         product.save()
         return Response('Product Updated', status=status.HTTP_200_OK)
     
