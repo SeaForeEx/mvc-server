@@ -24,6 +24,9 @@ class OrderView(ViewSet):
         """GET Single Order"""
         
         order = Order.objects.get(pk=pk)
+        customer_id = request.query_params.get('customerId', None)
+        if customer_id is not None:
+            order = order.filter(customer_id=customer_id)
         serializer = OrderSerializer(order)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
